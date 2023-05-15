@@ -1,0 +1,6 @@
+ETL Process:
+1. first of all i built an object of sql_server_client, then connection to the source api of NYC Fire Incident Dispatch Data.
+2. then extracting the data in the maximum chunks this api allows - 50k.
+3. for each 50k chunk i'm transforming the dtypes as they are all object when extracted, also a few more duplications cleaning.
+4. then for each chunk i'm writing to my sql server db in smaller chunks of 50.(local instance of SQL Server..)
+5. after i have my fact and dim table created dynamically by the data frame i'm altering the tables with PK and indexes on ID field. would also add partitioning of date if had time..

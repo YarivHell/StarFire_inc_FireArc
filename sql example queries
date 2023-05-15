@@ -1,0 +1,30 @@
+1. the average dispatch response time for incidents all boroughs:
+
+SELECT incident_borough, AVG(dispatch_response_seconds_qy) AS avg_dispatch_time
+FROM Fact_Incidents
+JOIN Dim_Incidents
+ON Fact_Incidents.starfire_incident_id = Dim_Incidents.starfire_incident_id
+GROUP BY incident_borough;
+
+
+2. How many incidents were reported all specific police precinct during a specific time period:
+
+SELECT cast(incident_datetime as date) as incident_datetime,policeprecinct, COUNT(*) AS num_incidents
+FROM Fact_Incidents
+JOIN Dim_Incidents
+ON Fact_Incidents.starfire_incident_id = Dim_Incidents.starfire_incident_id
+WHERE
+ incident_datetime >= '2021-01-01'
+AND incident_datetime <= '2022-02-01'
+GROUP BY cast(incident_datetime as date),policeprecinct
+order by 1,2;
+
+3. Which incident classification had the highest number of incidents in a specific zipcode:
+
+SELECT top 1 zipcode, incident_classification, COUNT(*) AS num_incidents
+FROM Fact_Incidents
+JOIN Dim_Incidents
+ON Fact_Incidents.starfire_incident_id = Dim_Incidents.starfire_incident_id
+where zipcode != 'nan'
+GROUP BY zipcode, incident_classification
+ORDER BY num_incidents DESC;

@@ -1,0 +1,19 @@
+In this star model we have 2 table,
+connected by 'starfire_incident_id' uniqe field, and index of hash('starfire_incident_id').
+i would create the tables with partitioning by months on 'incident_datetime' field.
+that's will help me run faster aggregations on the incidents in time frames.
+
+fact table - ['starfire_incident_id', 'incident_datetime', 'incident_close_datetime',
+    'incident_borough', 'alarm_box_borough', 'dispatch_response_seconds_qy', 'incident_response_seconds_qy',
+    'incident_travel_tm_seconds_qy']
+
+dim table - ['starfire_incident_id', 'alarm_box_location', 'highest_alarm_level',
+    'incident_classification', 'incident_classification_group',
+    'zipcode', 'policeprecinct', 'citycouncildistrict',
+    'communitydistrict', 'communityschooldistrict', 'congressionaldistrict',
+    'alarm_source_description_tx', 'alarm_level_index_description',
+    'first_assignment_datetime', 'first_activation_datetime',
+    'first_on_scene_datetime',
+    'valid_dispatch_rspns_time_indc', 'valid_incident_rspns_time_indc', 'engines_assigned_quantity',
+    'ladders_assigned_quantity', 'other_units_assigned_quantity']
+
